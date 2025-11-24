@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles can go below */
+.bg-app-gradient {
+	background-image: linear-gradient(
+		135deg,
+		#283618,
+		#606c38 35%,
+		#dda15e 65%,
+		#fefae0
+	);
+}
+
+.bg-form-gradient {
+	background-image: linear-gradient(
+		145deg,
+		#283618,
+		#bc6c25 50%,
+		#dda15e 80%,
+		#fefae0
+	);
+}
+
+.text-heading-gradient {
+	background-image: linear-gradient(
+		90deg,
+		#bc6c25,
+		#dda15e,
+		#fefae0
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
