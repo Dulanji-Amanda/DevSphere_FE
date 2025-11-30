@@ -27,7 +27,7 @@ export default function Login() {
 
         const resData: UserDetailsResponse = await getMyDetails()
         setUser(resData.data)
-        navigate("/home")
+        navigate("/firstpage")
       } else {
         alert("Login failed, please check your credentials.")
       }
@@ -62,7 +62,7 @@ export default function Login() {
             <input
               id="login-username"
               type="text"
-              placeholder="johndoe"
+              placeholder="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"

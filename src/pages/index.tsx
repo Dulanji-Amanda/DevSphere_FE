@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Code2, Brain, Zap, Trophy, ArrowRight } from 'lucide-react';
+import { Code2, Brain, Zap, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function CodeQuizLanding() {

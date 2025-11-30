@@ -4,6 +4,8 @@ import { register, type RegisterResponse } from "../services/auth"
 
 export default function Register() {
   const [username, setUsername] = useState("")
+  const [firstname, setFirstname] = useState("")
+  const [lastname, setLastname] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -11,14 +13,14 @@ export default function Register() {
 
   const handleRegister = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    if (!username || !password) {
+    if (!username || !password || !firstname || !lastname) {
       setError("Please fill in all fields.")
       return
     }
     setError(null)
     setLoading(true)
     try {
-      const data: RegisterResponse = await register(username, password)
+      const data: RegisterResponse = await register(username, password, firstname, lastname)
       alert(`Registration successful! Email: ${data.data.email}`)
       navigate("/login")
     } catch (err: unknown) {
@@ -38,11 +40,35 @@ export default function Register() {
         </div>
         <form className="space-y-4">
           <div className="space-y-1">
+            <label htmlFor="reg-firstname" className="text-xs font-medium text-gray-700 uppercase tracking-wide">First Name</label>
+            <input
+              id="reg-firstname"
+              type="text"
+              placeholder="enter your first name"
+              value={firstname}
+              onChange={(e) => setFirstname(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"
+              disabled={loading}
+            />
+          </div>
+          <div className="space-y-1">
+            <label htmlFor="reg-lastname" className="text-xs font-medium text-gray-700 uppercase tracking-wide">Last Name</label>
+            <input
+              id="reg-lastname"
+              type="text"
+              placeholder="enter your last name"
+              value={lastname}
+              onChange={(e) => setLastname(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"
+              disabled={loading}
+            />
+          </div>
+          <div className="space-y-1">
             <label htmlFor="reg-username" className="text-xs font-medium text-gray-700 uppercase tracking-wide">Username</label>
             <input
               id="reg-username"
               type="text"
-              placeholder="johndoe"
+              placeholder="enter your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"

@@ -9,6 +9,7 @@ const Register = lazy(() => import("../pages/Register"))
 const Home = lazy(() => import("../pages/Home"))
 const Post = lazy(() => import("../pages/Post"))
 const MyPost = lazy(() => import("../pages/MyPost"))
+const FirstPage = lazy(() => import("../pages/firstpage"))
 
 type RequireAuthTypes = { children: ReactNode; roles?: string[] }
 
@@ -53,6 +54,7 @@ export default function Router() {
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/firstpage" element={<FirstPage />} />
           <Route
             element={
               <RequireAuth>

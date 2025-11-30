@@ -36,9 +36,16 @@ export const login = async (
 
 export const register = async (
   username: string,
-  password: string
+  password: string,
+  firstname: string,
+  lastname: string
 ): Promise<RegisterResponse> => {
-  const res = await api.post("/auth/register", { email: username, password })
+  const res = await api.post("/auth/register", {
+    email: username,
+    password,
+    firstname,
+    lastname
+  })
   return res.data as RegisterResponse
 }
 
