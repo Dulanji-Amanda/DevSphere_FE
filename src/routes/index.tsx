@@ -10,6 +10,14 @@ const Home = lazy(() => import("../pages/Home"))
 const Post = lazy(() => import("../pages/Post"))
 const MyPost = lazy(() => import("../pages/MyPost"))
 const FirstPage = lazy(() => import("../pages/firstpage"))
+const QuizJava = lazy(() => import("../pages/java"))
+const QuizPython = lazy(() => import("../pages/python"))
+const QuizTS = lazy(() => import("../pages/typescript"))
+const QuizJS = lazy(() => import("../pages/javascript"))
+const QuizHTML = lazy(() => import("../pages/html"))
+const QuizCSS = lazy(() => import("../pages/css"))
+const QuizCSharp = lazy(() => import("../pages/csharp"))
+const QuizGo = lazy(() => import("../pages/go"))
 
 type RequireAuthTypes = { children: ReactNode; roles?: string[] }
 
@@ -55,6 +63,14 @@ export default function Router() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/firstpage" element={<FirstPage />} />
+          <Route path="/quiz/java" element={<QuizJava />} />
+          <Route path="/quiz/python" element={<QuizPython />} />
+          <Route path="/quiz/typescript" element={<QuizTS />} />
+          <Route path="/quiz/javascript" element={<QuizJS />} />
+          <Route path="/quiz/html" element={<QuizHTML />} />
+          <Route path="/quiz/css" element={<QuizCSS />} />
+          <Route path="/quiz/csharp" element={<QuizCSharp />} />
+          <Route path="/quiz/go" element={<QuizGo />} />
           <Route
             element={
               <RequireAuth>
