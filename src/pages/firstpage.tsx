@@ -1,7 +1,8 @@
 import { ArrowRight,Code2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function DevSphereLanding() {
+  const navigate = useNavigate()
   const languages = [
     { name: 'JavaScript', icon: '💻', description: 'Test your knowledge with 20 AI-generated questions on JavaScript.' },
     { name: 'Python', icon: '🐍', description: 'Test your knowledge with 20 AI-generated questions on Python.' },
@@ -68,6 +69,25 @@ export default function DevSphereLanding() {
                   {lang.description}
                 </p>
                 <button
+                  onClick={() => {
+                    const name = lang.name.toLowerCase()
+                    const pathMap: Record<string, string> = {
+                      javascript: "/quiz/javascript",
+                      typescript: "/quiz/typescript",
+                      python: "/quiz/python",
+                      java: "/quiz/java",
+                      html: "/quiz/html",
+                      css: "/quiz/css",
+                      "c#": "/quiz/csharp",
+                      go: "/quiz/go"
+                    }
+                    const target = pathMap[name]
+                    if (target) {
+                      navigate(target)
+                    } else {
+                      navigate("/quiz/java")
+                    }
+                  }}
                   className="group flex items-center gap-2 px-4 py-2 text-purple-600 font-semibold border border-purple-300 rounded-md hover:bg-purple-50 hover:border-purple-400 hover:gap-3 focus:outline-none focus:ring-2 focus:ring-purple-500/40 transition-all"
                 >
                   Start Quiz

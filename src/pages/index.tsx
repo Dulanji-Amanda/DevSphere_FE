@@ -66,18 +66,6 @@ export default function CodeQuizLanding() {
           </div>
         </div>
       </header>
-
-      {/* Hero Section */}
-      {/* <section className="max-w-7xl mx-auto px-6 pt-20 pb-16 text-center">
-        <h2 className="text-6xl font-bold text-purple-600 mb-6">
-          Welcome to DevSphere
-        </h2>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-          Your AI-powered partner for mastering programming languages. Select a language below to start your journey.
-        </p>
-
-      </section> */}
-
       {/* About Section */}
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-6">
