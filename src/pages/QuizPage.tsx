@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useEffect, useMemo, useRef, useState } from "react"
+=======
+import { useEffect, useMemo, useState } from "react"
+>>>>>>> 0792c4b732eca7ed662e10d8a90c6239ee529497
 import { ArrowRight, ArrowLeft, CheckCircle, XCircle, Trophy } from "lucide-react"
 import { fetchQuiz, scoreQuiz, type QuizQuestion } from "../services/quiz"
 
@@ -13,24 +17,38 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
   const [answers, setAnswers] = useState<number[]>([])
   const [quizComplete, setQuizComplete] = useState(false)
   const [loading, setLoading] = useState(true)
+<<<<<<< HEAD
   const fetchSeq = useRef(0)
+=======
+>>>>>>> 0792c4b732eca7ed662e10d8a90c6239ee529497
 
   const pageTitle = useMemo(() => title ?? `${language.toUpperCase()} QUESTION`, [language, title])
 
   useEffect(() => {
+<<<<<<< HEAD
     const currentFetch = ++fetchSeq.current
+=======
+>>>>>>> 0792c4b732eca7ed662e10d8a90c6239ee529497
     let mounted = true
     const loadQuestions = async () => {
       setLoading(true)
       try {
         const qs = await fetchQuiz(language)
+<<<<<<< HEAD
         if (!mounted || currentFetch !== fetchSeq.current) return
+=======
+        if (!mounted) return
+>>>>>>> 0792c4b732eca7ed662e10d8a90c6239ee529497
         setQuestions(qs)
       } catch (err) {
         console.error("Failed to load quiz questions", err)
         alert("Failed to load quiz questions. Please check backend is running and API URL.")
       } finally {
+<<<<<<< HEAD
         if (mounted && currentFetch === fetchSeq.current) setLoading(false)
+=======
+        if (mounted) setLoading(false)
+>>>>>>> 0792c4b732eca7ed662e10d8a90c6239ee529497
       }
     }
 
