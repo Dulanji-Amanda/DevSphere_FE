@@ -2,10 +2,12 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowRight, ArrowLeft, CheckCircle, XCircle, Trophy } from "lucide-react"
 import { fetchQuiz, scoreQuiz, type QuizQuestion } from "../services/quiz"
 import BackButton from "../components/BackButton"
+import { useNavigate } from "react-router-dom"
 
 type Props = { language: string; emoji?: string; title?: string }
 
 export default function QuizPage({ language, emoji = "🎓", title }: Props) {
+  const navigate = useNavigate()
   const [questions, setQuestions] = useState<QuizQuestion[]>([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
@@ -117,7 +119,7 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
             </div>
             <div className="flex gap-4 justify-center">
               <button onClick={restartQuiz} className="bg-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-purple-700 transition-all shadow-lg">Retake Quiz</button>
-              <button onClick={() => (window.location.href = "/home")} className="bg-slate-700 text-white px-8 py-3 rounded-xl font-semibold hover:bg-slate-800 transition-all">Back to Home</button>
+              <button onClick={() => navigate("/firstpage")} className="bg-slate-700 text-white px-8 py-3 rounded-xl font-semibold hover:bg-slate-800 transition-all">Back to Home</button>
             </div>
           </div>
         </div>
@@ -135,7 +137,7 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
             <p className="text-gray-600 mb-6">We couldn't find any questions for the {language} quiz.</p>
             <div className="flex gap-4 justify-center">
               <button onClick={() => window.location.reload()} className="bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-purple-700">Retry</button>
-              <button onClick={() => (window.location.href = "/home")} className="bg-slate-700 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800">Back to Home</button>
+              <button onClick={() => navigate("/firstpage")} className="bg-slate-700 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800">Back to Home</button>
             </div>
           </div>
         </div>
