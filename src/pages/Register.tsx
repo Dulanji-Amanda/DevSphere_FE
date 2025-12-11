@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { register, type RegisterResponse } from "../services/auth"
 
 export default function Register() {
-  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [firstname, setFirstname] = useState("")
   const [lastname, setLastname] = useState("")
   const [password, setPassword] = useState("")
@@ -13,14 +13,14 @@ export default function Register() {
 
   const handleRegister = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    if (!username || !password || !firstname || !lastname) {
+    if (!email || !password || !firstname || !lastname) {
       setError("Please fill in all fields.")
       return
     }
     setError(null)
     setLoading(true)
     try {
-      const data: RegisterResponse = await register(username, password, firstname, lastname)
+      const data: RegisterResponse = await register(email, password, firstname, lastname)
       alert(`Registration successful! Email: ${data.data.email}`)
       navigate("/login")
     } catch (err: unknown) {
@@ -64,13 +64,13 @@ export default function Register() {
             />
           </div>
           <div className="space-y-1">
-            <label htmlFor="reg-username" className="text-xs font-medium text-gray-700 uppercase tracking-wide">Username</label>
+            <label htmlFor="reg-email" className="text-xs font-medium text-gray-700 uppercase tracking-wide">Email</label>
             <input
-              id="reg-username"
-              type="text"
-              placeholder="enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="reg-email"
+              type="email"
+              placeholder="enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"
               disabled={loading}
             />

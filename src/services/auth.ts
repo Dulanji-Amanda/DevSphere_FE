@@ -35,13 +35,13 @@ export const login = async (
 }
 
 export const register = async (
-  username: string,
+  email: string,
   password: string,
   firstname: string,
   lastname: string
 ): Promise<RegisterResponse> => {
   const res = await api.post("/auth/register", {
-    email: username,
+    email,
     password,
     firstname,
     lastname

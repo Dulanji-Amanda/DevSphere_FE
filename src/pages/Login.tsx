@@ -58,11 +58,11 @@ export default function Login() {
         <p className="text-sm text-gray-600 mb-6 text-center">Access your DevSphere account.</p>
         <form className="space-y-4">
           <div className="space-y-1">
-            <label htmlFor="login-username" className="text-xs font-medium text-gray-700 uppercase tracking-wide">Username</label>
+            <label htmlFor="login-username" className="text-xs font-medium text-gray-700 uppercase tracking-wide">Email</label>
             <input
               id="login-username"
-              type="text"
-              placeholder="username"
+              type="email"
+              placeholder="email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"
@@ -78,6 +78,18 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"
             />
+            <div className="text-right">
+              <button
+                type="button"
+                className="text-xs font-medium text-purple-600 hover:text-purple-700"
+                onClick={() => {
+                  // Placeholder: wire this to your reset route when available
+                  alert("Forgot password flow coming soon.")
+                }}
+              >
+                Forgot password?
+              </button>
+            </div>
           </div>
           <button
             onClick={handleLogin}
