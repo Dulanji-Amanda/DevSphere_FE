@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowRight, ArrowLeft, CheckCircle, XCircle, Trophy } from "lucide-react"
 import { fetchQuiz, scoreQuiz, type QuizQuestion } from "../services/quiz"
+import BackButton from "../components/BackButton"
 
 type Props = { language: string; emoji?: string; title?: string }
 
@@ -245,6 +246,7 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
           )}
         </div>
       </div>
+      <BackButton />
     </div>
   )
 }
