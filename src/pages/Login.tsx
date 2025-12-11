@@ -83,8 +83,7 @@ export default function Login() {
                 type="button"
                 className="text-xs font-medium text-purple-600 hover:text-purple-700"
                 onClick={() => {
-                  // Placeholder: wire this to your reset route when available
-                  alert("Forgot password flow coming soon.")
+                  navigate('/forgot-password')
                 }}
               >
                 Forgot password?

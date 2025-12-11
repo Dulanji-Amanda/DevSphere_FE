@@ -69,3 +69,9 @@ export const logout = (): void => {
     localStorage.removeItem("refreshToken")
   } catch {}
 }
+
+export const requestPasswordReset = async (email: string): Promise<{ message?: string }> => {
+  // Endpoint name is assumed; update if backend differs
+  const res = await api.post("/auth/forgot-password", { email })
+  return (res.data as any) ?? {}
+}
