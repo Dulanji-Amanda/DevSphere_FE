@@ -7,6 +7,7 @@ const Index = lazy(() => import("../pages"))
 const Login = lazy(() => import("../pages/Login"))
 const Register = lazy(() => import("../pages/Register"))
 const ForgotPassword = lazy(() => import("../pages/ForgotPassword"))
+const Profile = lazy(() => import("../pages/Profile"))
 const Home = lazy(() => import("../pages/Home"))
 const Post = lazy(() => import("../pages/Post"))
 const MyPost = lazy(() => import("../pages/MyPost"))
@@ -65,6 +66,7 @@ export default function Router() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/firstpage" element={<FirstPage />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/quiz/java" element={<QuizJava />} />
           <Route path="/quiz/python" element={<QuizPython />} />
           <Route path="/quiz/typescript" element={<QuizTS />} />

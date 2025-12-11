@@ -54,6 +54,13 @@ export const getMyDetails = async (): Promise<UserDetailsResponse> => {
   return res.data as UserDetailsResponse
 }
 
+export const updateMyDetails = async (
+  payload: { email?: string; firstname?: string; lastname?: string }
+): Promise<UserDetailsResponse> => {
+  const res = await api.put("/auth/me", payload)
+  return res.data as UserDetailsResponse
+}
+
 export const refreshTokens = async (
   refreshToken: string
 ): Promise<RefreshTokensResponse> => {

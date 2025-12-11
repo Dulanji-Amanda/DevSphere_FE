@@ -1,4 +1,4 @@
-import { ArrowRight,Code2 } from 'lucide-react';
+import { ArrowRight, Code2, User as UserIcon } from 'lucide-react';
 import {useNavigate } from 'react-router-dom';
 import { logout } from "../services/auth";
 import { useAuth } from "../context/authContext";
@@ -34,6 +34,16 @@ export default function DevSphereLanding() {
             >
               Logout
             </button>
+            <div className="flex items-center gap-2 text-white">
+              <button
+                onClick={() => navigate('/profile')}
+                className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-600/30 border border-purple-400/50 cursor-pointer"
+                aria-label="Open profile"
+                title="Profile"
+              >
+                <UserIcon className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </header>
