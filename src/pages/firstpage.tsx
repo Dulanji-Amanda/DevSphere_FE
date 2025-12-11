@@ -1,8 +1,11 @@
 import { ArrowRight,Code2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { logout } from "../services/auth";
+import { useAuth } from "../context/authContext";
 
 export default function DevSphereLanding() {
   const navigate = useNavigate()
+  const { setUser } = useAuth()
   const languages = [
     { name: 'JavaScript', icon: '💻', description: 'Test your knowledge with 20 AI-generated questions on JavaScript.' },
     { name: 'Python', icon: '🐍', description: 'Test your knowledge with 20 AI-generated questions on Python.' },
@@ -21,18 +24,16 @@ export default function DevSphereLanding() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <h1 className="text-2xl font-bold text-white">DevSphere</h1>
           <div className="flex items-center gap-4">
-            <Link
-              to="/login"
+            <button
+              onClick={() => {
+                logout()
+                setUser(null)
+                navigate("/login")
+              }}
               className="px-6 py-2 rounded-lg font-medium text-white border border-purple-200 hover:bg-purple-700 hover:text-white hover:border-purple-700 transition"
             >
-              Sign In
-            </Link>
-            <Link
-              to="/register"
-              className="px-6 py-2 rounded-lg font-medium text-white border border-purple-200 hover:bg-purple-700 hover:text-white hover:border-purple-700 transition"
-            >
-              Sign Up
-            </Link>
+              Logout
+            </button>
           </div>
         </div>
       </header>

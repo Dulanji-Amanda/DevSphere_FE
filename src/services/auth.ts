@@ -62,3 +62,10 @@ export const refreshTokens = async (
   })
   return res.data as RefreshTokensResponse
 }
+
+export const logout = (): void => {
+  try {
+    localStorage.removeItem("accessToken")
+    localStorage.removeItem("refreshToken")
+  } catch {}
+}
