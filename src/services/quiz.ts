@@ -16,3 +16,8 @@ export const scoreQuiz = async (questions: QuizQuestion[], answers: number[]) =>
   const res = await api.post("/ai/score", { questions, answers })
   return res.data as { total: number; correct: number; percentage: number }
 }
+
+export const fetchOneQuestion = async (language: string): Promise<QuizQuestion> => {
+  const res = await api.post("/ai/generate-one", { language })
+  return res.data.question as QuizQuestion
+}

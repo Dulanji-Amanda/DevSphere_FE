@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowRight, ArrowLeft, CheckCircle, XCircle, Trophy } from "lucide-react"
-import { fetchQuiz, scoreQuiz, type QuizQuestion } from "../services/quiz"
+import { fetchOneQuestion, scoreQuiz, type QuizQuestion } from "../services/quiz"
 import BackButton from "../components/BackButton"
 import { useNavigate } from "react-router-dom"
 
@@ -16,9 +16,11 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
   const [answers, setAnswers] = useState<number[]>([])
   const [quizComplete, setQuizComplete] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [loadingNext, setLoadingNext] = useState(false)
   const fetchSeq = useRef(0)
 
   const pageTitle = useMemo(() => title ?? `${language.toUpperCase()} QUESTION`, [language, title])
+  const TARGET_COUNT = 20
 
   useEffect(() => {
     const currentFetch = ++fetchSeq.current
@@ -26,12 +28,12 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
     const loadQuestions = async () => {
       setLoading(true)
       try {
-        const qs = await fetchQuiz(language)
+        const first = await fetchOneQuestion(language)
         if (!mounted || currentFetch !== fetchSeq.current) return
-        setQuestions(qs)
+        setQuestions([first])
       } catch (err) {
         console.error("Failed to load quiz questions", err)
-        alert("Failed to load quiz questions. Please check backend is running and API URL.")
+        alert("Failed to load the first quiz question. Please check backend is running and API URL.")
       } finally {
         if (mounted && currentFetch === fetchSeq.current) setLoading(false)
       }
@@ -73,10 +75,27 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
       setSelectedAnswer(null)
       setShowResult(false)
     } else {
-      try {
-        await scoreQuiz(questions, answers)
-      } catch (e) {}
-      setQuizComplete(true)
+      // At the end of loaded questions. Load more if we haven't reached target count.
+      if (questions.length < TARGET_COUNT) {
+        try {
+          setLoadingNext(true)
+          const nextQ = await fetchOneQuestion(language)
+          setQuestions((qs) => [...qs, nextQ])
+          setCurrentQuestion((q) => q + 1)
+          setSelectedAnswer(null)
+          setShowResult(false)
+        } catch (e) {
+          console.error("Failed to load next question", e)
+          alert("Failed to load the next question. Please try again.")
+        } finally {
+          setLoadingNext(false)
+        }
+      } else {
+        try {
+          await scoreQuiz(questions, answers)
+        } catch (e) {}
+        setQuizComplete(true)
+      }
     }
   }
 
@@ -98,7 +117,8 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
   }
 
   if (quizComplete) {
-    const percentage = questions.length ? (score / questions.length) * 100 : 0
+    const total = TARGET_COUNT
+    const percentage = total ? (score / total) * 100 : 0
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
         <header className="bg-slate-700 shadow-lg">
@@ -114,7 +134,7 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Quiz Complete!</h2>
             <p className="text-xl text-gray-600 mb-8">Congratulations on completing the {language} quiz</p>
             <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 mb-8">
-              <div className="text-6xl font-bold text-purple-600 mb-2">{score}/{questions.length}</div>
+              <div className="text-6xl font-bold text-purple-600 mb-2">{score}/{TARGET_COUNT}</div>
               <p className="text-xl text-gray-700">You scored {percentage.toFixed(0)}%</p>
             </div>
             <div className="flex gap-4 justify-center">
@@ -156,11 +176,11 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
           <div className="flex items-center gap-6">
             <div className="text-white">
               <span className="text-sm opacity-80">Question</span>
-              <span className="ml-2 font-bold">{currentQuestion + 1}/{questions.length}</span>
+              <span className="ml-2 font-bold">{currentQuestion + 1}/{TARGET_COUNT}</span>
             </div>
             <div className="text-white">
               <span className="text-sm opacity-80">Score</span>
-              <span className="ml-2 font-bold">{score}/{questions.length}</span>
+              <span className="ml-2 font-bold">{score}/{TARGET_COUNT}</span>
             </div>
           </div>
         </div>
@@ -169,10 +189,10 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
         <div className="mb-8">
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm font-semibold text-gray-700">Progress</span>
-            <span className="text-sm font-semibold text-purple-600">{Math.round(((currentQuestion + 1) / questions.length) * 100)}%</span>
+            <span className="text-sm font-semibold text-purple-600">{Math.round(((currentQuestion + 1) / TARGET_COUNT) * 100)}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-            <div className="bg-gradient-to-r from-purple-500 to-purple-700 h-full rounded-full transition-all duration-500" style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }} />
+            <div className="bg-gradient-to-r from-purple-500 to-purple-700 h-full rounded-full transition-all duration-500" style={{ width: `${((currentQuestion + 1) / TARGET_COUNT) * 100}%` }} />
           </div>
         </div>
         <div className="bg-white rounded-3xl shadow-xl p-8 mb-6">
@@ -237,12 +257,12 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
             Previous
           </button>
           {!showResult ? (
-            <button onClick={handleSubmit} disabled={selectedAnswer === null} className="flex items-center gap-2 px-8 py-3 rounded-xl font-semibold text-white bg-purple-600 hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg">
+            <button onClick={handleSubmit} disabled={selectedAnswer === null || loadingNext} className="flex items-center gap-2 px-8 py-3 rounded-xl font-semibold text-white bg-purple-600 hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg">
               Submit Answer
             </button>
           ) : (
-            <button onClick={handleNext} className="flex items-center gap-2 px-8 py-3 rounded-xl font-semibold text-white bg-purple-600 hover:bg-purple-700 transition-all shadow-lg">
-              {currentQuestion === questions.length - 1 ? "Finish Quiz" : "Next Question"}
+            <button onClick={handleNext} disabled={loadingNext} className="flex items-center gap-2 px-8 py-3 rounded-xl font-semibold text-white bg-purple-600 hover:bg-purple-700 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+              {currentQuestion === TARGET_COUNT - 1 ? "Finish Quiz" : (loadingNext ? "Loading..." : "Next Question")}
               <ArrowRight className="w-5 h-5" />
             </button>
           )}

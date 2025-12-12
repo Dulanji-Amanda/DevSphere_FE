@@ -14,12 +14,15 @@ export interface RegisterData {
 export interface RegisterResponse {
   data: RegisterData
 }
+export interface UserDetails {
+  email?: string
+  firstname?: string
+  lastname?: string
+  roles?: string[]
+  [key: string]: unknown
+}
 export interface UserDetailsResponse {
-  data: {
-    email?: string
-    roles?: string[]
-    [key: string]: unknown
-  }
+  data: UserDetails
 }
 export interface RefreshTokensResponse {
   accessToken: string
@@ -54,8 +57,16 @@ export const getMyDetails = async (): Promise<UserDetailsResponse> => {
   return res.data as UserDetailsResponse
 }
 
+export interface UpdateProfilePayload {
+  email?: string
+  firstname?: string
+  lastname?: string
+  currentPassword?: string
+  newPassword?: string
+}
+
 export const updateMyDetails = async (
-  payload: { email?: string; firstname?: string; lastname?: string }
+  payload: UpdateProfilePayload
 ): Promise<UserDetailsResponse> => {
   const res = await api.put("/auth/me", payload)
   return res.data as UserDetailsResponse
