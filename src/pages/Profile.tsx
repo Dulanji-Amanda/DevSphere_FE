@@ -115,11 +115,10 @@ export default function Profile() {
           </div>
           {message && (
             <div
-              className={`text-sm font-medium rounded-md px-3 py-2 border ${
-                messageType === "error"
+              className={`text-sm font-medium rounded-md px-3 py-2 border ${messageType === "error"
                   ? "text-red-700 bg-red-50 border-red-200"
                   : "text-green-700 bg-green-50 border-green-200"
-              }`}
+                }`}
             >
               {message}
             </div>

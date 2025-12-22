@@ -20,11 +20,17 @@ export default function ForgotPassword() {
     setSubmitting(true)
     try {
       await requestPasswordReset(email)
-      setMessage("If an account exists for this email, a reset link has been sent.")
+      setMessage("If an account exists for this email, an OTP has been sent.")
+      setTimeout(() => {
+        navigate('/reset-password', { state: { email } })
+      }, 1500)
     } catch (err) {
       console.error(err)
       // Graceful message even if backend route isn't implemented yet
-      setMessage("If an account exists for this email, a reset link has been sent.")
+      setMessage("If an account exists for this email, an OTP has been sent.")
+      setTimeout(() => {
+        navigate('/reset-password', { state: { email } })
+      }, 1500)
     } finally {
       setSubmitting(false)
     }
@@ -35,7 +41,7 @@ export default function ForgotPassword() {
       <div className="w-full max-w-md bg-white rounded-2xl border border-gray-200 shadow-md p-8">
         <div className="text-center mb-6">
           <h1 className="text-3xl font-bold text-purple-600">Forgot Password</h1>
-          <p className="text-sm text-gray-600 mt-2">Enter your email to receive a reset link.</p>
+          <p className="text-sm text-gray-600 mt-2">Enter your email to receive an OTP.</p>
         </div>
         <form className="space-y-4">
           <div className="space-y-1">
@@ -65,7 +71,7 @@ export default function ForgotPassword() {
             disabled={submitting}
             className="w-full px-5 py-3 rounded-lg font-semibold text-white bg-purple-600 hover:bg-purple-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {submitting ? "Sending..." : "Send Reset Link"}
+            {submitting ? "Sending..." : "Send OTP"}
           </button>
         </form>
         <p className="mt-6 text-sm text-gray-600 text-center">

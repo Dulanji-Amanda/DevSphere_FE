@@ -85,11 +85,21 @@ export const logout = (): void => {
   try {
     localStorage.removeItem("accessToken")
     localStorage.removeItem("refreshToken")
-  } catch {}
+  } catch { }
 }
 
 export const requestPasswordReset = async (email: string): Promise<{ message?: string }> => {
   // Endpoint name is assumed; update if backend differs
   const res = await api.post("/auth/forgot-password", { email })
+  return (res.data as any) ?? {}
+}
+
+export const verifyOtp = async (email: string, otp: string): Promise<{ message?: string }> => {
+  const res = await api.post("/auth/verify-otp", { email, otp })
+  return (res.data as any) ?? {}
+}
+
+export const resetPassword = async (email: string, otp: string, password: string): Promise<{ message?: string }> => {
+  const res = await api.post("/auth/reset-password", { email, otp, password })
   return (res.data as any) ?? {}
 }

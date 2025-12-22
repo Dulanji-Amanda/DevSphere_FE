@@ -7,16 +7,36 @@ export default function Register() {
   const [firstname, setFirstname] = useState("")
   const [lastname, setLastname] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const [error, setError] = useState<string | null>(null)
 
   const handleRegister = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    if (!email || !password || !firstname || !lastname) {
+
+    // Validations
+    if (!email || !password || !firstname || !lastname || !confirmPassword) {
       setError("Please fill in all fields.")
       return
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.")
+      return
+    }
+
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long.")
+      return
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.")
+      return
+    }
+
     setError(null)
     setLoading(true)
     try {
@@ -25,7 +45,8 @@ export default function Register() {
       navigate("/login")
     } catch (err: unknown) {
       console.error("Registration error:", err)
-      setError("Registration failed. Please try again.")
+      const errorMsg = (err as any).response?.data?.message || "Registration failed. Please try again."
+      setError(errorMsg)
     } finally {
       setLoading(false)
     }
@@ -83,6 +104,18 @@ export default function Register() {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"
+              disabled={loading}
+            />
+          </div>
+          <div className="space-y-1">
+            <label htmlFor="reg-confirm-password" className="text-xs font-medium text-gray-700 uppercase tracking-wide">Confirm Password</label>
+            <input
+              id="reg-confirm-password"
+              type="password"
+              placeholder="••••••••"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30"
               disabled={loading}
             />

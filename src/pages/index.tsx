@@ -1,30 +1,11 @@
-import { useState } from 'react';
+
 import { Code2, Brain, Zap, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function CodeQuizLanding() {
-  const [hoveredCard, setHoveredCard] = useState(null);
 
-  const languages = [
-    {
-      icon: "JS",
-      name: "JavaScript",
-      description: "Test your knowledge with 20 AI-generated questions on JavaScript.",
-      color: "from-yellow-400 to-yellow-600"
-    },
-    {
-      icon: "Py",
-      name: "Python",
-      description: "Test your knowledge with 20 AI-generated questions on Python.",
-      color: "from-blue-400 to-blue-600"
-    },
-    {
-      icon: "☕",
-      name: "Java",
-      description: "Test your knowledge with 20 AI-generated questions on Java.",
-      color: "from-red-400 to-red-600"
-    }
-  ];
+
+
 
   const features = [
     {
