@@ -108,4 +108,8 @@ This value feeds the Axios base URL in [src/services/api.ts](src/services/api.ts
 - Cypress happy-path regression script (login → quiz → logout) before each submission.
 - Visual regression snapshots for key breakpoints (mobile/tablet/desktop).
 
+## 11. Links
+ 
+- **Deployed URL** - https://test-versal-fe.vercel.app
+
 
