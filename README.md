@@ -2,6 +2,8 @@
 
 The DevSphere frontend is a React + TypeScript SPA built with Vite and TailwindCSS. It delivers responsive student workflows—authentication, profile management, quiz taking, and AI feedback—while adhering to the RAD/agile criteria from the coursework brief.
 
+### Deployed URL - https://test-versal-fe.vercel.app
+
 ## 1. Product Overview
 
 - **Audience**: learners preparing for programming interviews and instructors authoring content.
@@ -25,18 +27,28 @@ The DevSphere frontend is a React + TypeScript SPA built with Vite and TailwindC
 - **Services layer**: [src/services/auth.ts](src/services/auth.ts), [src/services/quiz.ts](src/services/quiz.ts), and [src/services/post.ts](src/services/post.ts) encapsulate REST calls and shared types.
 - **Pages**: All user flows (Login, Register, Forgot/Reset Password, MyPost, Quiz variations) live under [src/pages](src/pages) and are code-split via `React.lazy`.
 
-## 4. Folder Snapshot
+## 4. Screenshots
 
-```
-src/
-  components/     # Layout, Header, reusable buttons/input patterns
-  context/        # Auth provider (temporary until Redux Toolkit migration)
-  pages/          # Screen-level React components per flow
-  routes/         # Router + RequireAuth
-  services/       # Axios instance, auth/post/quiz clients
-  assets/         # Static imagery & illustrations
-   App.tsx         # Hydrates AuthProvider + Router
-```
+
+![Sign up page](/public/screenshots/register.png)
+
+![Sign in page](/public/screenshots/login.png)
+
+![fp page](/public/screenshots/fp.png)
+
+![otp verify page](/public/screenshots/verify%20otp.png)
+
+![About](/public/screenshots/about.png)
+
+![welcome](/public/screenshots/welcome.png)
+
+![profile](/public/screenshots/profile.png)
+
+![quiz](/public/screenshots/quiz.png)
+
+![End](/public/screenshots/end.png)
+
+
 
 ## 5. Environment Variables
 
@@ -73,7 +85,7 @@ This value feeds the Axios base URL in [src/services/api.ts](src/services/api.ts
 - **Password recovery**: OTP entry + verification sequence aligns with backend OTP hashing logic.
 - **Profile editing**: `/profile` reads/writes through `updateMyDetails` to support email/name/password edits.
 - **Quiz experiences**: Dedicated routes for Java, Python, TypeScript, JavaScript, HTML, CSS, C#, and Go. Each uses the shared `QuizPage` wrapper that calls `fetchOneQuestion`, paginates 20 questions, and uses `scoreQuiz` for summaries.
-- **Protected authoring**: `/my-post` nests inside `RequireAuth` with `roles={['ADMIN','AUTHOR']}` ensuring RBAC parity with the backend middleware.
+
 
 ## 8. UI/UX Guidelines
 
@@ -82,7 +94,7 @@ This value feeds the Axios base URL in [src/services/api.ts](src/services/api.ts
 - Lucide icons (Arrow, Check Circle, Trophy) reinforce quiz feedback.
 - Accessibility: semantic headings, focusable buttons, color contrast (#6d28d9 primary accent) pass WCAG AA.
 
-## 9. Deployment (Vercel / Netlify)
+## 9. Deployment (Vercel)
 
 1. Fork/clone the GitHub repo and connect it to your hosting provider.
 2. Set `VITE_API_URL` in the project environment variables.
@@ -90,25 +102,10 @@ This value feeds the Axios base URL in [src/services/api.ts](src/services/api.ts
 4. Enable automatic redeployments on pushes to `main` / `release`.
 5. Update the root README with the deployed URL so assessors can verify the live client.
 
-## 10. Coursework Requirement Alignment
-
-| Requirement                 | Status     | Notes                                                                       |
-| --------------------------- | ---------- | --------------------------------------------------------------------------- |
-| React + TypeScript frontend | ✅         | Functional components/hooks across pages                                    |
-| TailwindCSS responsive UI   | ✅         | Layout + quiz UI rely on Tailwind utility classes                           |
-| Redux for global state      | 🔄 Planned | AuthContext bridges the gap; Redux Toolkit migration tracked as FE-STATE-01 |
-| Advanced feature            | ✅         | AI-driven quizzes consume `/api/v1/ai/*`                                    |
-| Security (JWT handling)     | ✅         | Axios interceptor refreshes tokens + guards protected routes                |
-| Documentation               | ✅         | This README plus backend README satisfy submission requirements             |
-| Deployment readiness        | ✅         | Vercel/Netlify steps documented                                             |
-
-## 11. Testing & QA Ideas
+## 10. Testing & QA Ideas
 
 - Component-level tests with Vitest + React Testing Library for auth and quiz logic.
 - Cypress happy-path regression script (login → quiz → logout) before each submission.
 - Visual regression snapshots for key breakpoints (mobile/tablet/desktop).
 
-## 12. Links
 
-- Backend instructions: [../devsphere_be/README.md](../devsphere_be/README.md)
-- Design inspiration + mood board: add screenshots/GIFs before final submission.
