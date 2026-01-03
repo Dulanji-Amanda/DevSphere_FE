@@ -26,7 +26,6 @@ export default function ForgotPassword() {
       }, 1500)
     } catch (err) {
       console.error(err)
-      // Graceful message even if backend route isn't implemented yet
       setMessage("If an account exists for this email, an OTP has been sent.")
       setTimeout(() => {
         navigate('/reset-password', { state: { email } })

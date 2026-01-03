@@ -147,7 +147,6 @@ export default function QuizPage({ language, emoji = "🎓", title }: Props) {
     )
   }
 
-  // Guard: if we somehow have no questions, show a helpful message instead of crashing
   if (!questions || questions.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">

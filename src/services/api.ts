@@ -1,5 +1,4 @@
-// axiosConfig
-// apiService
+
 
 import axios, { AxiosError, type AxiosRequestConfig } from "axios"
 import { refreshTokens } from "./auth"
@@ -7,8 +6,7 @@ import { refreshTokens } from "./auth"
 const baseURL = (import.meta as any)?.env?.VITE_API_URL || "http://localhost:5000/api/v1"
 const api = axios.create({ baseURL })
 
-// An interceptor is like a middleware for Axios requests and responses.
-// It lets you intercept, modify, or analyze any API request or response before it goes out or comes back.
+
 
 const PUBLIC_ENDPOINTS = ["/auth/login", "/auth/register"]
 

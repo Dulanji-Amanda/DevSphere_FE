@@ -11,7 +11,7 @@ export default function Login() {
   const navigate = useNavigate()
 
   const handleLogin = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault() // prevent page refresh
+    e.preventDefault() //  page refresh
 
     if (!username.trim() || !password.trim()) {
       alert("Please enter both username and password.")
@@ -36,7 +36,6 @@ export default function Login() {
       alert("Login failed, please check your credentials.")
     }
 
-    // ----- Example of axios call (besic) -----
     /*
     try {
       const response = await axios.post(

@@ -1,6 +1,5 @@
 import api from "./api"
 
-// Response/data type definitions based on current usage patterns
 export interface LoginData {
   accessToken: string
   refreshToken: string
@@ -89,7 +88,6 @@ export const logout = (): void => {
 }
 
 export const requestPasswordReset = async (email: string): Promise<{ message?: string }> => {
-  // Endpoint name is assumed; update if backend differs
   const res = await api.post("/auth/forgot-password", { email })
   return (res.data as any) ?? {}
 }

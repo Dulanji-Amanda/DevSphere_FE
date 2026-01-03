@@ -1,8 +1,6 @@
-/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
 import { getMyDetails, type UserDetailsResponse } from "../services/auth"
 
-// Basic shape of user returned by backend; extend as needed
 export interface User {
   email?: string
   firstname?: string
